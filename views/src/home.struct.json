@@ -1,5 +1,5 @@
 {
-    "headers": [],
+    "headers": ["header.php"],
     "pages": ["home.php"],
-    "footers": []
+    "footers": ["footer.php"]
 }

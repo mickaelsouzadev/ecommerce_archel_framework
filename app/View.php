@@ -29,7 +29,7 @@ class View
     public function setPageStructure(string $page, $struct=[])
     {
         if($struct === []){
-            echo "{$this->sources}{$page}.struct.json";
+            // echo "{$this->sources}{$page}.struct.json";
             if(file_exists("{$this->sources}{$page}.struct.json")){
               
                 $file = file_get_contents("{$this->sources}{$page}.struct.json");

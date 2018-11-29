@@ -5,11 +5,11 @@ use Phroute\Phroute\Dispatcher;
 $uri = $_SERVER['REQUEST_URI'];
 
 $method = $_SERVER['REQUEST_METHOD'];
-
+// var_dump($uri);
 if($_SERVER['HTTP_HOST'] == "localhost") {
-	$uri = str_replace('/archel_framework', "", $uri);
+    $uri = str_replace('/archel_framework', "", $uri);
 }
-
+// var_dump($uri);
 $collector = new RouteCollector();
 
 $collector->filter('auth', function(){
@@ -35,6 +35,22 @@ $collector->get('/', function() {
     $controller = new App\Controllers\HomeController();
     $controller->index();
 });
+
+$collector->get('/home', function() {
+    $controller = new App\Controllers\HomeController();
+    $controller->index();
+});
+
+$collector->get('/produtos', function() {
+    $controller = new App\Controllers\ProdutoController();
+    $controller->index();
+});
+
+$collector->get('/entrar', function() {
+    $controller = new App\Controllers\LoginController();
+    $controller->index();
+});
+
 
 // $collector->group(['before' => 'auth'], function(RouteCollector $collector){
 // 	$collector->get('admin', function(){
