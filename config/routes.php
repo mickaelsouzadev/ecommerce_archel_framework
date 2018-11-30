@@ -51,6 +51,11 @@ $collector->get('/entrar', function() {
     $controller->index();
 });
 
+$collector->get('/registrar', function(){
+    $controller = new App\Controllers\RegisterController();
+    $controller->index();
+});
+
 
 // $collector->group(['before' => 'auth'], function(RouteCollector $collector){
 // 	$collector->get('admin', function(){

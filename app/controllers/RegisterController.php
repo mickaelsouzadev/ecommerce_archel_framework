@@ -2,7 +2,7 @@
 
 namespace App\Controllers;
 
-class LoginController extends Controller{
+class RegisterController extends Controller{
     
     public function __construct()
     {
@@ -13,8 +13,8 @@ class LoginController extends Controller{
     
     public function index()
     {
-		$data['title'] = "Entrar";
-        $this->view->loadPage("login",$data);
+		$data['title'] = "Registre-se";
+        $this->view->loadPage("register",$data);
     }
     
 }

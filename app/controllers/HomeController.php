@@ -13,7 +13,7 @@ class HomeController extends Controller{
     
     public function index()
     {
-		$data = "SITE DO CAPETA";
+		$data['title'] = "Arthur & Michel - Autopeças";
         $this->view->loadPage("home",$data);
     }
     

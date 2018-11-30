@@ -13,7 +13,7 @@ class ProdutoController extends Controller{
     
     public function index()
     {
-		$data = "SITE DO CAPETA";
+		$data['title'] = "Produtos";
         $this->view->loadPage("produtos",$data);
     }
     

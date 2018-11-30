@@ -8,7 +8,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Business Casual - Start Bootstrap Theme</title>
+    <title><?php echo $data['title'] ?></title>
 
     <!-- Bootstrap core CSS -->
     <link href="<?php echo $this->vendor ?>bootstrap/css/bootstrap.min.css" rel="stylesheet">
