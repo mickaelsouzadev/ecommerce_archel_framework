@@ -1,10 +1,12 @@
 <?php
 /* PHP Class for managing queries and connecting to database, part of MVC Framework
  * AUTHOR: Antony Acosta, Modified by Mickael Souza
- * LAST EDIT: 2018-11-26
+ * LAST EDIT: 2018-12-02
  */
 
 namespace App\Models;
+use App\Models\Connection;
+use App\Models\QueryBuilder;
 
 class Model 
 {
@@ -41,6 +43,7 @@ class Model
         $validfields = $this->builder->insert(array_keys($data));
         $validfields = array_flip($validfields);
         $data = array_intersect_key($data, $validfields);
+        var_dump($data);
         return $this->run("lastInsertId",$data);
     }
     

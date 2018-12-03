@@ -11,7 +11,7 @@
                   
                   
                 </h2>
-                <form class="register-form">
+                <form class="register-form" action="novo-usuario" method="post">
                   <div class="form-row">
                     <div class="form-group col-lg-8">
                         <label>Nome completo: </label>
@@ -19,15 +19,15 @@
                     </div>
                     <div class="form-group col-lg-4">
                       <label>Email: </label>
-                      <input type="text" class="form-control register-input" placeholder="seuemail@exemplo.com" name="email" required>
+                      <input type="email" class="form-control register-input" placeholder="seuemail@exemplo.com" name="email" required>
                     </div>
                     <div class="form-group col-lg-6">
                       <label>Senha: </label>
-                      <input type="text" class="form-control register-input" placeholder="Sua senha" name="senha" required>
+                      <input type="password" class="form-control register-input" placeholder="Sua senha" name="senha" required>
                     </div>
                     <div class="form-group col-lg-6">
                         <label>Confirme sua Senha: </label>
-                        <input type="text" class="form-control register-input" placeholder="Repita sua senha" name="repetir-senha" required>
+                        <input type="password" class="form-control register-input" placeholder="Repita sua senha" name="repetir-senha" required>
                     </div>
                     <div class="form-group col-lg-6">
                         <label>Cpf: </label>
@@ -39,7 +39,7 @@
                     </div>
                     <div class="form-group col-lg-12">
                         <label>Endereço: </label>
-                        <input type="text" class="form-control register-input" placeholder="Seu telefone" name="telefone" required>
+                        <input type="text" class="form-control register-input" placeholder="Seu Endereço" name="endereco" required>
                     </div>
                     <div class="form-group">
                         <input type="submit" class='btn btn-lg btn-primary register-input' name="criar" value='Criar Conta'><br>

@@ -1,5 +1,4 @@
 <?php
-<?php
 /* PHP Class for storing database Tables structure
  * AUTHOR Antony Acosta
  * LAST EDIT: 2018-11-08

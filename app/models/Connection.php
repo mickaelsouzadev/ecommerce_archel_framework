@@ -1,12 +1,13 @@
 <?php
 /* PHP Class for connecting to database
  * AUTHOR: Antony Acosta, Modified by Mickael Souza
- * LAST EDIT: 2018-11-05
+ * LAST EDIT: 2018-12-02
  */
-use \PDO\PDO;
-use \PDO\PDOException;
-
 namespace App\Models;
+
+use \PDO;
+use \PDOException;
+
 
 class Connection 
 {

@@ -21,7 +21,7 @@ $collector->filter('auth', function(){
 		return false;
 	}
 
-    header('Location: /login');
+    header('Location: login');
 
     return false;
 
@@ -56,32 +56,35 @@ $collector->get('/registrar', function(){
     $controller->index();
 });
 
+$collector->post('/novo-usuario', function(){
+    $controller = new App\Controllers\RegisterController();
+    $controller->registrar();
+});
 
-// $collector->group(['before' => 'auth'], function(RouteCollector $collector){
-// 	$collector->get('admin', function(){
-//         App\Controllers\HomeController::index();
-//     });
-// });
 
-// $collector->group(array('prefix' => 'admin'), function(RouteCollector $collector){
+$collector->group(['before' => 'auth'], function(RouteCollector $collector){
+$collector->get('admin', function(){
+        App\Controllers\HomeController::index();
+    });
+});
 
-//     $collector->group(['before' => 'auth'], function(RouteCollector $collector){
-//         $collector->get('pages', function(){
-//             return 'page management';
-//         });
-//         $collector->get('products', function(){
-//             return 'product management';
-//         });
-//     });
+$collector->group(array('prefix' => 'admin'), function(RouteCollector $collector){
+
+    $collector->group(['before' => 'auth'], function(RouteCollector $collector){
+        $collector->get('pages', function(){
+             return 'page management';
+        });
+        $collector->get('products', function(){
+            return 'product management';
+        });
+    });
  
-//     $collector->get('orders', function(){
-//         return 'Order management';
-//     });
+    $collector->get('orders', function(){
+        return 'Order management';
+    });
 
-//     $collector->get('login', function() {
-//         App\Controllers\TestController::login();
-//     })
+   
     
-// });
+});
 
 $dispatcher =  new Dispatcher($collector->getData());

@@ -70,6 +70,7 @@ class QueryBuilder
             return ":{$e}";
         }, $data);
         $this->query.="(".implode(", ", $doubledoot).")";
+        var_dump($this->query);
         return $data;
     }
     public function update(array $data, int $table = 0)
