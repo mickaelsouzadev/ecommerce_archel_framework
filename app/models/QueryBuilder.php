@@ -4,7 +4,6 @@
  * LAST EDIT: 2018-11-26
  */
 namespace App\Models;
-
 class QueryBuilder 
 {
     public $query = "";
@@ -70,7 +69,7 @@ class QueryBuilder
             return ":{$e}";
         }, $data);
         $this->query.="(".implode(", ", $doubledoot).")";
-    
+        var_dump($this->query);
         return $data;
     }
     public function update(array $data, int $table = 0)
@@ -98,9 +97,9 @@ class QueryBuilder
             return false;
         }
         if(false === strpos($this->query,"WHERE")){
-            $this->query.= " WHERE {$this->tables[$table]->name}.{$field} {$operator} '{$value}'";
+            $this->query.= " WHERE {$this->tables[$table]->name}.{$field} {$operator} {$value}";
         }else{
-            $this->query.= "{$concatenator} {$this->tables[$table]->name}.{$field} {$operator} '{$value}'";
+            $this->query.= "{$concatenator} {$this->tables[$table]->name}.{$field} {$operator} {$value}";
         }
         
         return $this;
