@@ -138,7 +138,7 @@ class Model
     
     public function where($field, $val, $table = 0, $operator = "=", $concatenator = "AND")
     {
-        $this->builder->where($field, $val, $table, $operator, $concatenator);
+        $this->builder->where($field, $val, $table, $operator, $concatenator);        
         return $this;
     }
     

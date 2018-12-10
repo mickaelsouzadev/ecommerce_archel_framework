@@ -69,7 +69,7 @@ class QueryBuilder
             return ":{$e}";
         }, $data);
         $this->query.="(".implode(", ", $doubledoot).")";
-        var_dump($this->query);
+        // var_dump($this->query);
         return $data;
     }
     public function update(array $data, int $table = 0)
@@ -97,9 +97,9 @@ class QueryBuilder
             return false;
         }
         if(false === strpos($this->query,"WHERE")){
-            $this->query.= " WHERE {$this->tables[$table]->name}.{$field} {$operator} {$value}";
+            $this->query.= " WHERE {$this->tables[$table]->name}.{$field} {$operator} '{$value}'";
         }else{
-            $this->query.= "{$concatenator} {$this->tables[$table]->name}.{$field} {$operator} {$value}";
+            $this->query.= "{$concatenator} {$this->tables[$table]->name}.{$field} {$operator} '{$value}'";
         }
         
         return $this;
@@ -111,11 +111,13 @@ class QueryBuilder
         
         $table2 = (is_string($table2)) ? $this->getTableIndex($table2) : $table2;
         $table1 = 0;
-        
-        $fk = $this->tables[$table1]->name .".". $this->tables[$table1]->fk($this->tables[$table2]->name );
-        
-        $pk = $this->tables[$table2]->name .".". $this->tables[$table2]->pk();
-        
+        if($this->tables[$table1]->fk($this->tables[$table2]->name)){
+            $fk = $this->tables[$table1]->name .".". $this->tables[$table1]->fk($this->tables[$table2]->name);
+            $pk = $this->tables[$table2]->name .".". $this->tables[$table2]->pk();
+        }elseif($this->tables[$table2]->fk($this->tables[$table1]->name)){
+            $fk = $this->tables[$table2]->name .".". $this->tables[$table2]->fk($this->tables[$table1]->name);
+            $pk = $this->tables[$table1]->name .".". $this->tables[$table1]->pk();
+        }
         $this->query.= " {$type} JOIN {$this->tables[$table2]->name} ON {$fk} = {$pk}";
         
         return $this;
