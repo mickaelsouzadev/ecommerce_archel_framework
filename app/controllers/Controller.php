@@ -1,17 +1,19 @@
 <?php  
 /* PHP Class for managing views and models
  * AUTHOR: Mickael Souza, modified by Antony Acosta for working with current version of MVC
- * LAST EDIT: 2018-11-29
+ * LAST EDIT: 2018-12-02
  */
 namespace App\Controllers;
 use App\View;
 use App\Models\Model;
+use App\Auth;
 
 class Controller
 {	 
     
     protected $model;
     protected $view;
+    protected $form_manager;
    
     public function __construct($inipath = __DIR__."/config.ini")
     {   
@@ -24,6 +26,7 @@ class Controller
 
         $this->view = new View($config["View"]);
         $this->model = new Model();
+        $this->auth = new Auth();
     }
     
 }

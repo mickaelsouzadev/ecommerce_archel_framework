@@ -16,6 +16,7 @@
     <!-- Custom fonts for this template -->
     <link href="https://fonts.googleapis.com/css?family=Raleway:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Lora:400,400i,700,700i" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
 
     <!-- Custom styles for this template -->
     <link href="<?php echo $this->vendor ?>css/business-casual.css" rel="stylesheet">
@@ -47,7 +48,11 @@
               <a class="nav-link text-uppercase text-expanded" href="registrar">Registre-se</a>
             </li>
             <li class="nav-item px-lg-4">
-              <a class="nav-link text-uppercase text-expanded" href="entrar">Entrar</a>
+              <?php if(App\Auth::verifyUserIsLogged()): ?>
+                <a class="nav-link text-uppercase text-expanded" href="sair">Sair</a>
+              <?php else: ?>
+                <a class="nav-link text-uppercase text-expanded" href="entrar">Entrar</a>
+              <?php endif; ?>
             </li>
             <li class="nav-item px-lg-2">
               <form>
@@ -55,6 +60,10 @@
                    <input type="text" class="form-control search-input" placeholder="Pesquisar" name="pesquisar" required>
                 </div>
               </form>
+            
+            </li>
+            <li class="nav-item px-lg-2">
+            <a class="nav-link"><i class="fa fa-2x fa-shopping-cart"></i></a>
             
             </li>
           </ul>

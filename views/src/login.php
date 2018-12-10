@@ -8,7 +8,7 @@
                   
                   
               </h2>
-                <form class="register-form">
+                <form class="register-form" method="post" id="login-form">
                   <div class="form-row">
                     <div class="form-group col-lg-12">
                       <label>Email: </label>
@@ -16,13 +16,16 @@
                     </div>
                     <div class="form-group col-lg-12">
                       <label>Senha: </label>
-                      <input type="text" class="form-control register-input" placeholder="Sua senha" name="senha" required>
+                      <input type="password" class="form-control register-input" placeholder="Sua senha" name="senha" required>
                     </div>
                     <div class="form-group">
                         <input type="submit" class='btn btn-lg btn-primary register-input' name="criar" value='Entrar'><br>
                     </div>
+                   
                 </div>
-                  
+                   <div id="error" class="alert alert-danger" style="display: none">
+                        <p id="errorMessage"></p>
+                    </div>
                 </form>
             </div>
         </div>

@@ -1,7 +1,7 @@
 <?php  
 /* PHP Class for managing the authentication of the users
  * AUTHOR: Mickael Souza
- * LAST EDIT: 2018-11-12
+ * LAST EDIT: 2018-12-09
  */
 namespace App;
 use App\Session;
@@ -11,30 +11,39 @@ use App\Password;
 
 class Auth 
 {
-	private $model;
 	private $user;
 
-	public function __construct($model)
+	public function __construct()
 	{
-		$this->model = new $model();
 		Session::start();
 	}
 
-	public function login($email, $password, $type = 'user')
+	public function login($form_password, $user, $type = 'user')
 	{
-		$this->user = $this->model->getByEmail($email);
-
+		$this->user = $user;
+		
 		try {
-			if(Password::verifyPassword($password, $this->user->getPassword())) {
+			if(Password::verifyPassword($form_password, $this->user['password'])) {
 				$this->createSession($type);
 				return true;
 			} else {
-				throw new Exception('Email ou senha incorretos!');
+				throw new \Exception('Email ou senha incorretos!');
 			}
-		} catch(Exception $e) {
+		} catch(\Exception $e) {
 			print $e->getMessage();
 		}
 
+	}
+
+	public function newUserLogin($user, $type = 'user')
+	{
+		$this->user = $user;
+
+		if(Session::sessionExists('user')) {
+			Session::destroySessions();
+		}
+
+		$this->createSession($type);
 	}
 
 	public static function verifyAdminIsLogged()
@@ -60,7 +69,7 @@ class Auth
 
 	public function createCookie($type = 'user')
 	{
-		Cookie::setCookies([$type => $this->user->getUsername(), 'password' => $this->user->getPassword()]);
+		Cookie::setCookies([$type => $this->user['username'], 'password' => $this->user['password']]);
 	}
 
 	public function logout()

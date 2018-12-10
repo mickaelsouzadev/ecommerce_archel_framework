@@ -7,7 +7,7 @@ namespace App;
 
 class Password
 {
-    public static function hashPassword($password, $algorithm = 'PASSWORD_DEFAULT', $cost = 10) 
+    public static function hashPassword($password, $algorithm = PASSWORD_DEFAULT, $cost = 10) 
     {
         return password_hash($password, $algorithm, ['cost' => $cost]);
     }

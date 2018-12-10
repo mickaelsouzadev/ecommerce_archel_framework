@@ -1,8 +1,8 @@
 <?php  
 
-require 'vendor/autoload.php';
+require 'vendor\autoload.php';
 
-require 'config/routes.php';
+require 'config\routes.php';
 
 use App\Session;
 use App\Cookie;
