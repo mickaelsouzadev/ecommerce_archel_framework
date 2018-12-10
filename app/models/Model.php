@@ -29,27 +29,26 @@ class Model
         }
     }
     
-    private function run($callback, $params = null){
+    public function run($callback, $params = null){
         return $this->connection->exec($this->builder->query,$callback,$params);
     }
     
     
     public function select(array $fields = []){
         $this->builder->select($fields);
-        return $this->run("fetchAll");
+        return $this;
     }
     
     public function insert(array $data = []){ //array assoc as $field=>$value
         $validfields = $this->builder->insert(array_keys($data));
         $validfields = array_flip($validfields);
         $data = array_intersect_key($data, $validfields);
-        var_dump($data);
-        return $this->run("lastInsertId",$data);
+        return $this;
     }
     
     public function delete($id){
         $this->builder->delete()->where($this->builder->tables[0]->pk(),$id);
-        return $this->run("rowCount");
+        return $this;
         
     }
     
@@ -58,8 +57,9 @@ class Model
         
         $this->builder->where($this->builder->tables[0]->pk(),$id);
         
-        return $this->run("rowCount", $data);
+        return $this;
     }
+
     public function setTable($table){
         
         $this->builder = new QueryBuilder($table);
@@ -89,6 +89,8 @@ class Model
         },$cols);
         
         $this->builder->tables[0]->setFks(array_combine($fkskeys,$fksvalues));
+        
+        return $this;
         
         
     }
@@ -130,8 +132,14 @@ class Model
         foreach(array_keys($fields) as $t){
             $this->builder->join($type, $t);
         }
-        return $this->run("fetchAll");
+        return $this;
         
+    }
+    
+    public function where($field, $val, $table = 0, $operator = "=", $concatenator = "AND")
+    {
+        $this->builder->where($field, $val, $table, $operator, $concatenator);
+        return $this;
     }
     
 }

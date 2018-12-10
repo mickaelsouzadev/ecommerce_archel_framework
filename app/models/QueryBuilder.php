@@ -70,7 +70,7 @@ class QueryBuilder
             return ":{$e}";
         }, $data);
         $this->query.="(".implode(", ", $doubledoot).")";
-        var_dump($this->query);
+    
         return $data;
     }
     public function update(array $data, int $table = 0)
@@ -91,14 +91,17 @@ class QueryBuilder
         return $this;
     }
     
-    public function where($field, $value, int $table = 0, string $operator = "=")
+    public function where($field, $value, int $table = 0, string $operator = "=", string $concatenator = "AND")
     {
-        if($this->tables[$table]->field($field) && $this->tables[$table]->pk() !== $field)
+        if(!$this->tables[$table]->field($field) && $this->tables[$table]->pk() !== $field)
         {  
             return false;
         }
-        
-        $this->query.= " WHERE {$this->tables[$table]->name}.{$field} {$operator} {$value}";
+        if(false === strpos($this->query,"WHERE")){
+            $this->query.= " WHERE {$this->tables[$table]->name}.{$field} {$operator} '{$value}'";
+        }else{
+            $this->query.= "{$concatenator} {$this->tables[$table]->name}.{$field} {$operator} '{$value}'";
+        }
         
         return $this;
     }
@@ -109,7 +112,6 @@ class QueryBuilder
         
         $table2 = (is_string($table2)) ? $this->getTableIndex($table2) : $table2;
         $table1 = 0;
-        
         
         $fk = $this->tables[$table1]->name .".". $this->tables[$table1]->fk($this->tables[$table2]->name );
         

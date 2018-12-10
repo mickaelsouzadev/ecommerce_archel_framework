@@ -61,6 +61,17 @@ $collector->post('/novo-usuario', function(){
     $controller->registrar();
 });
 
+$collector->post('/login', function(){
+    $controller = new App\Controllers\LoginController();
+    $controller->login();
+});
+
+$collector->get('/sair', function(){
+    $controller = new App\Controllers\LoginController();
+    $controller->logout();
+});
+
+
 
 $collector->group(['before' => 'auth'], function(RouteCollector $collector){
 $collector->get('admin', function(){

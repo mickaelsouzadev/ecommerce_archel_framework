@@ -6,6 +6,7 @@
 namespace App\Controllers;
 use App\View;
 use App\Models\Model;
+use App\Auth;
 
 class Controller
 {	 
@@ -25,6 +26,7 @@ class Controller
 
         $this->view = new View($config["View"]);
         $this->model = new Model();
+        $this->auth = new Auth();
     }
     
 }

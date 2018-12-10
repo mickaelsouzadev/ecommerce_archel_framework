@@ -9,9 +9,6 @@ class Password
 {
     public static function hashPassword($password, $algorithm = PASSWORD_DEFAULT, $cost = 10) 
     {
-    	var_dump($password);
-    	var_dump($algorithm);
-    	var_dump($cost);
         return password_hash($password, $algorithm, ['cost' => $cost]);
     }
     

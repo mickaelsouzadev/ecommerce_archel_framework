@@ -11,7 +11,7 @@
                   
                   
                 </h2>
-                <form class="register-form" action="novo-usuario" method="post">
+                <form id="register-form" class="register-form" method="post">
                   <div class="form-row">
                     <div class="form-group col-lg-8">
                         <label>Nome completo: </label>
@@ -44,8 +44,11 @@
                     <div class="form-group">
                         <input type="submit" class='btn btn-lg btn-primary register-input' name="criar" value='Criar Conta'><br>
                     </div>
+                    
                 </div>
-                  
+                   <div id="error" class="alert alert-danger" style="display: none">
+                        <p id="errorMessage"></p>
+                    </div>
                 </form>
              
                     

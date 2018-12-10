@@ -52,7 +52,11 @@
               <a class="nav-link text-uppercase text-expanded" href="registrar">Registre-se</a>
             </li>
             <li class="nav-item px-lg-4">
-              <a class="nav-link text-uppercase text-expanded" href="entrar">Entrar</a>
+              <?php if(App\Session::sessionExists('user')): ?>
+                <a class="nav-link text-uppercase text-expanded" href="sair">Sair</a>
+              <?php else: ?>
+                <a class="nav-link text-uppercase text-expanded" href="entrar">Entrar</a>
+              <?php endif; ?>
             </li>
             <li class="nav-item px-lg-2">
               <form>
