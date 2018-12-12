@@ -1,4 +1,4 @@
-<section class="page-section about-heading default-forms-section">
+<section class="page-section about-heading default-forms-section sections-w">
       <div class="container">
         <img class="img-fluid about-heading-img mb-3 mb-lg-0" src="img/about.jpg" alt="">
         <div class="about-heading-content">
@@ -32,7 +32,7 @@
 							</div>
 							<br>
 							<div class="form-group">
-								 <?php if(App\Auth::verifyUserIsLogged()): ?>
+								<?php if(App\Auth::verifyUserIsLogged()): ?>
 								<input type="submit" class='btn btn-lg btn-success register-input' name="comprar" value='Comprar'><br>
 								<?php else: ?>
 								<label>Faça <a href="../entrar">login</a> para poder comprar:</label>

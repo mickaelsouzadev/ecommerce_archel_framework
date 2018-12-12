@@ -1,7 +1,7 @@
 <?php  
 /* PHP Class for managing the authentication of the users
  * AUTHOR: Mickael Souza
- * LAST EDIT: 2018-12-09
+ * LAST EDIT: 2018-12-12
  */
 namespace App;
 use App\Session;
@@ -40,7 +40,7 @@ class Auth
 		$this->user = $user;
 
 		if(Session::sessionExists('user')) {
-			Session::destroySessions();
+			Session::setSessionAttribute('user', "");
 		}
 
 		$this->createSession($type);
@@ -74,8 +74,15 @@ class Auth
 
 	public function logout()
 	{
-		Session::destroySessions();
-		Cookie::destroyAllCookies();
+		if(Session::sessionExists('user') || Cookie::cookieExists('user')) {
+			Session::destroySession('user');
+			Cookie::destroyCookie('user');
+		}
+
+		if(Session::sessionExists('admin') || Cookie::cookieExists('admin')) {
+			Session::destroySession('admin');
+			Cookie::destroyCookie('admin');
+		}
 	}
 		
 }

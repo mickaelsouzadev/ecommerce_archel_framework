@@ -1,5 +1,5 @@
-<!-- <?php var_dump($data['cookie']) ?> -->
-<section class="page-section about-heading default-forms-section">
+<!-- <?php var_dump($data['carrinho']) ?> -->
+<section class="page-section about-heading default-forms-section sections-w">
       <div class="container">
         <img class="img-fluid about-heading-img mb-3 mb-lg-0" src="img/about.jpg" alt="">
         <div class="about-heading-content">
@@ -11,6 +11,7 @@
               
                   <span class="section-heading-lower">Seu carrinho está vazio </span>
                   
+
                   
                 </h2>
                 <?php else: ?>
@@ -31,8 +32,7 @@
 						<h5><?php echo $prod['qtd'] ?> Unidades</h5>
 					</div>
 					<div class="col-lg-2">
-						<input type="hidden" id="id_carrinho" value="<?php echo $prod['product']['id']?>">
-						<button class="btn btn-danger" id="delete-carrinho">Deletar <i class="fa fa-trash"></i></button>
+						<button class="btn btn-danger delete-carrinho" id="<?php echo $prod['product']['id'] ?>">Deletar <i class="fa fa-trash"></i></button>
 					</div>
 					
 					<?php endforeach; ?>
@@ -42,12 +42,21 @@
 					<div class="col-lg-9">
 				
 					</div>
+					<?php $total = 0; foreach($data['carrinho'] as $prod): $total += (float)$prod['total']; endforeach;?>
+
 					<div class="col-lg-3">
-						<h5>Total: R$ 6000</h5>
+						<h5>Total: R$ <?php echo $total ?></h5>
 					</div>
+
 				</div>
 				<div class="form-group">
-                        <input type="submit" class='btn btn-lg btn-primary register-input' name="criar" value='Comprar Tudo'><br>
+					<?php if(App\Auth::verifyUserIsLogged()): ?>
+                        <input type="submit" class='btn btn-lg btn-success register-input' name="criar" value='Comprar Tudo'><br>
+                    <?php else: ?>
+                    	<label>Faça <a href="entrar">login</a> para poder comprar:</label>
+                    	<br>
+                    	<input type="submit" class='btn btn-lg btn-success register-input disabled' name="criar" value='Comprar Tudo'><br>
+                    <?php endif; ?>
                     </div>
                 <?php endif; ?>
                

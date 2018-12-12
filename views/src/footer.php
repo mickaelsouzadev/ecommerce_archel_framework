@@ -72,16 +72,15 @@
                 
             })
 
-            $('#delete-carrinho').click(function() {
-                var data = {id_carrinho: $('#id_carrinho').val()};
-                console.log(data);
+            $('.delete-carrinho').click(function() {
+                var data = {id_carrinho: $(this).attr('id')};
                  $.ajax({
                     type: 'POST',
                     url: 'deletar-carrinho',
                     data: data,
                     success: function(response){
                        
-                        window.location.href="http://localhost/archel_framework/produtos";
+                        window.location.href="http://localhost/archel_framework/meu-carrinho";
                     }
                 });
             })

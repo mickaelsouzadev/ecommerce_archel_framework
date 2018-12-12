@@ -1,5 +1,5 @@
 
-    <section class="page-section container">
+    <section class="page-section container sections-w">
           <h3 class="site-heading text-center text-white d-lg-block product-title"> <span class="site-heading-lower mb-2">Produtos </span></h3>
           <div class="row products">
               <div class="card-deck products-deck"> 

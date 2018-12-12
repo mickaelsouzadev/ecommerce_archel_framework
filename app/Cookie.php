@@ -11,7 +11,7 @@ class Cookie
 
 	public function __construct()
 	{
-		$this->time = time() + 1*86400;
+		$this->time = time() + 30*86400;
 	}
 
 	public static function setCookie($name, $value)

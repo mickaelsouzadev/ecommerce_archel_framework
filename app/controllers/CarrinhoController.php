@@ -16,27 +16,30 @@ class CarrinhoController extends Controller{
     
     public function index()
     {
-    	$data['vazio'] = false;
+    	$data['vazio'] = true;
     	$data['title'] = "Meu Carrinho";
     	$data['carrinho'] = Session::getSession('carrinho');
-        
-        $cookie_cart = Cookie::getCookie('carrinho');
-    	
-    	if($data['carrinho'] == null && $cookie_cart == null) {
-    		$data['vazio'] = true;
-    	} else {
-    		foreach ($data["carrinho"] as $key => $carrinho) {
-	    		if($carrinho == "") {
-	    			unset($data['carrinho'][$key]);
-	    			$data['vazio'] = true;
-	    		} else {
-	    			$data['vazio'] = false;
-	    		}
 
-    		}
+    	if(!Session::sessionExists('carrinho')) {
+    		$data['carrinho'] = json_decode(Cookie::getCookie('carrinho'), true);
     	}
-    	
-        
+
+    	$count_array = count($data['carrinho']);
+    	$count = 0;
+    
+    	foreach ($data["carrinho"] as $key => $carrinho) {
+
+	    	if($carrinho == "") {
+	    		unset($data['carrinho'][$key]);
+	    		$count++;
+	    	} 
+	    	
+    	}
+
+    	if($count < $count_array) {
+	    	$data['vazio'] = false;
+	    }
+       
     	$this->view->loadPage("carrinho",$data);
     }
 
@@ -62,11 +65,14 @@ class CarrinhoController extends Controller{
                                                     [ 
                                                     "id_peca", 
                                                     "imagem"]])->where('id', $form_data['id_peca'])->run("fetch");
-    	$cart = ['product' => $data['products'], 'qtd'=> $form_data['quantidade']];
+    	$cart = ['product' => $data['products'], 'qtd'=> $form_data['quantidade'], 'total'=> $form_data['quantidade'] * $data['products']['valor_venda']];
 
         
         
         Session::setSessionAttribute("carrinho", $data['products']['id'], $cart);	
+
+        $json_cart = json_encode(Session::getSession("carrinho"));
+
         Cookie::setCookie("carrinho", $json_cart);
 
     	

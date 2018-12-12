@@ -1,7 +1,7 @@
 <?php  
 /* PHP Class for create and managing sessions
  * AUTHOR: Mickael Souza
- * LAST EDIT: 2018-11-12
+ * LAST EDIT: 2018-12-12
  */
 namespace App;
 
@@ -63,6 +63,11 @@ class Session
     public static function sessionExists($name) 
     {
         return (isset($_SESSION[$name])) ? true : false;
+    }
+
+    public function destroySession($name)
+    {
+        unset($_SESSION[$name]);
     }
 
     public static function destroySessions()
