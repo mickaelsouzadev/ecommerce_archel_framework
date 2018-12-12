@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.3
+-- version 4.7.0
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost:3306
--- Generation Time: 10-Dez-2018 às 01:49
--- Versão do servidor: 5.7.19
--- versão do PHP: 7.1.20
+-- Host: 127.0.0.1
+-- Generation Time: 12-Dez-2018 às 13:31
+-- Versão do servidor: 10.1.24-MariaDB
+-- PHP Version: 7.1.6
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -39,6 +39,18 @@ CREATE TABLE `admin` (
 -- --------------------------------------------------------
 
 --
+-- Estrutura da tabela `admin_valid_ips`
+--
+
+CREATE TABLE `admin_valid_ips` (
+  `id` int(11) NOT NULL,
+  `id_admin` int(11) NOT NULL,
+  `ip_hash` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
 -- Estrutura da tabela `cliente`
 --
 
@@ -62,7 +74,10 @@ INSERT INTO `cliente` (`id`, `nome`, `cpf`, `endereco`, `telefone`, `email`, `se
 (4, 'Mickael Braz de Souza', '123456789', 'Rua sei la', '(55)84041268', 'mickael.souza.if@gmail.com', '$2y$10$xcnEt0zux2c8/.dFbkK6DugYC4kzMuu6d.h6YQ/o7XkzFtSJWZeQm', 0),
 (5, 'Mitsubishi', '14474747474747', 'fdfadfafa', '5555545454', 'juaodacosta@mmm.com', '$2y$10$Fz6kAk1yXRcWBEeopkQKCexYvuloGLPgyOuo68xm4/Nvufn4xEGbS', 0),
 (6, 'Mitsubishi', '2115255454544545', '545454545454', '5454554545', 'uio@faiomail.com', '$2y$10$vfRfGGOsQOuvh2PXwvg1SeV3wLowIY.7S9XFV/5n7d1RFDwcRGIhO', 0),
-(7, 'Mitsubishi', '123', '123', '123', 'mitu@mitu.com', '$2y$10$ojFyJjHbfPpj7ZmPcpr0dO.1VtJ1k6prof/oWeIszAbTUntIc3Y/C', 0);
+(7, 'Mitsubishi', '123', '123', '123', 'mitu@mitu.com', '$2y$10$ojFyJjHbfPpj7ZmPcpr0dO.1VtJ1k6prof/oWeIszAbTUntIc3Y/C', 0),
+(8, 'João da Silva', '1234656768', 'Sei La', '124435667', 'joaosilva@algo.com', '$2y$10$SZ9FL76FA6mcQPr9OL0ikuPNLrZDyS.rO6HBIylVgJybnWJD.BpAG', 0),
+(9, 'João da Silvasauro', '1234656768', 'Sei La', '124435667', 'joaosilvasauro@algo.com', '$2y$10$g8t6DtA9lFXhfbbq0dybeubKDQPbdMWB7E9CGWG.Qua1QrjHTnSH.', 0),
+(10, 'Jorge', '123', '123', '123', 'jorge@jorge', '$2y$10$b1U3uH/fZGYabLWqf8tDrOYW0apx6fZcc3PbS951uTL/fXWQQAfa6', 0);
 
 -- --------------------------------------------------------
 
@@ -148,6 +163,13 @@ CREATE TABLE `imagem_peca` (
   `imagem` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Extraindo dados da tabela `imagem_peca`
+--
+
+INSERT INTO `imagem_peca` (`id`, `id_peca`, `imagem`) VALUES
+(1, 1, 'imagem3.jpg');
+
 -- --------------------------------------------------------
 
 --
@@ -181,6 +203,13 @@ CREATE TABLE `peca` (
   `deletado` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Extraindo dados da tabela `peca`
+--
+
+INSERT INTO `peca` (`id`, `nome`, `valor_compra`, `valor_venda`, `marca`, `stock`, `compatibilidade`, `dimensoes_pacote`, `categoria`, `deletado`) VALUES
+(1, 'A Peça que você queria', 5000, 4500, 'Chevrollet', 4, 'Chevette', '95 x 85', 'Peça', 0);
+
 -- --------------------------------------------------------
 
 --
@@ -206,6 +235,13 @@ CREATE TABLE `venda` (
 --
 ALTER TABLE `admin`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `admin_valid_ips`
+--
+ALTER TABLE `admin_valid_ips`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `id_admin` (`id_admin`);
 
 --
 -- Indexes for table `cliente`
@@ -247,7 +283,8 @@ ALTER TABLE `fornecedor_peca`
 -- Indexes for table `imagem_peca`
 --
 ALTER TABLE `imagem_peca`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `id_peca` (`id_peca`);
 
 --
 -- Indexes for table `pagamento`
@@ -276,66 +313,76 @@ ALTER TABLE `venda`
 --
 ALTER TABLE `admin`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
+--
+-- AUTO_INCREMENT for table `admin_valid_ips`
+--
+ALTER TABLE `admin_valid_ips`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `cliente`
 --
 ALTER TABLE `cliente`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
-
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 --
 -- AUTO_INCREMENT for table `compra`
 --
 ALTER TABLE `compra`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
 --
 -- AUTO_INCREMENT for table `compra_peca`
 --
 ALTER TABLE `compra_peca`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
 --
 -- AUTO_INCREMENT for table `envios`
 --
 ALTER TABLE `envios`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
 --
 -- AUTO_INCREMENT for table `fornecedor`
 --
 ALTER TABLE `fornecedor`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
 --
 -- AUTO_INCREMENT for table `fornecedor_peca`
 --
 ALTER TABLE `fornecedor_peca`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
 --
 -- AUTO_INCREMENT for table `imagem_peca`
 --
 ALTER TABLE `imagem_peca`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `pagamento`
 --
 ALTER TABLE `pagamento`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
 --
 -- AUTO_INCREMENT for table `peca`
 --
 ALTER TABLE `peca`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `venda`
 --
 ALTER TABLE `venda`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Limitadores para a tabela `admin_valid_ips`
+--
+ALTER TABLE `admin_valid_ips`
+  ADD CONSTRAINT `admin_valid_ips_ibfk_1` FOREIGN KEY (`id_admin`) REFERENCES `admin` (`id`);
+
+--
+-- Limitadores para a tabela `imagem_peca`
+--
+ALTER TABLE `imagem_peca`
+  ADD CONSTRAINT `fk_peca` FOREIGN KEY (`id_peca`) REFERENCES `peca` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

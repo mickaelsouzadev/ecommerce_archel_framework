@@ -1,3 +1,4 @@
+<!-- <?php var_dump($data['cookie']) ?> -->
 <section class="page-section about-heading default-forms-section">
       <div class="container">
         <img class="img-fluid about-heading-img mb-3 mb-lg-0" src="img/about.jpg" alt="">

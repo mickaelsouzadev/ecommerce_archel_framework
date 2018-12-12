@@ -3,6 +3,7 @@
 namespace App\Controllers;
 use App\Form;
 use App\Session;
+use App\Cookie;
 
 class CarrinhoController extends Controller{
     
@@ -18,9 +19,10 @@ class CarrinhoController extends Controller{
     	$data['vazio'] = false;
     	$data['title'] = "Meu Carrinho";
     	$data['carrinho'] = Session::getSession('carrinho');
-
+        
+        $cookie_cart = Cookie::getCookie('carrinho');
     	
-    	if($data['carrinho'] == null) {
+    	if($data['carrinho'] == null && $cookie_cart == null) {
     		$data['vazio'] = true;
     	} else {
     		foreach ($data["carrinho"] as $key => $carrinho) {
@@ -34,7 +36,7 @@ class CarrinhoController extends Controller{
     		}
     	}
     	
-
+        
     	$this->view->loadPage("carrinho",$data);
     }
 
@@ -62,9 +64,10 @@ class CarrinhoController extends Controller{
                                                     "imagem"]])->where('id', $form_data['id_peca'])->run("fetch");
     	$cart = ['product' => $data['products'], 'qtd'=> $form_data['quantidade']];
 
-    	
-   		Session::setSessionAttribute("carrinho", $data['products']['id'], $cart);	
-   		
+        
+        
+        Session::setSessionAttribute("carrinho", $data['products']['id'], $cart);	
+        Cookie::setCookie("carrinho", $json_cart);
 
     	
 
@@ -82,6 +85,9 @@ class CarrinhoController extends Controller{
         $form_data = $this->form_manager->getFilteredData();
 
         Session::setSessionAttribute('carrinho', $form_data['id_carrinho'], "");
+
+        $json_cart = json_encode(Session::getSession("carrinho"));
+        Cookie::setCookie("carrinho", $json_cart);
         
     }
     
