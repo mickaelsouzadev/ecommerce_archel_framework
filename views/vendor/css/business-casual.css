@@ -284,3 +284,16 @@ p {
   font-size: 15px;
   max-height: 30px;
 }
+.show-links{
+  text-decoration: none;
+  color: rgb(33, 37, 41);
+  font-family: 'Raleway';
+}
+.show-links:hover, .show-links:active{
+  text-decoration: none;
+  color: rgb(33, 37, 41);
+  font-family: 'Raleway';
+}
+/*.card-text{
+  
+}*/

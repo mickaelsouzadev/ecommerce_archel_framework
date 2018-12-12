@@ -26,11 +26,33 @@ class ProdutoController extends Controller{
                                                     "dimensoes_pacote", 
                                                     "categoria"],
                                                 "imagem_peca"=>
-                                                    ["id", 
+                                                    [ 
                                                     "id_peca", 
                                                     "imagem"]])->run("fetchAll");
 
         $this->view->loadPage("produtos",$data);
+    }
+
+    public function showProduct($id)
+    {
+    	$data['products'] = $this->model->join(["peca"=>
+                                                    ["id", 
+                                                    "nome", 
+                                                    "valor_venda", 
+                                                    "marca", 
+                                                    "stock", 
+                                                    "compatibilidade", 
+                                                    "dimensoes_pacote", 
+                                                    "categoria"],
+                                                "imagem_peca"=>
+                                                    ["id", 
+                                                    "id_peca", 
+                                                    "imagem"]])->where('id', $id)->run("fetch");
+   
+    	$data['title'] = $data['products']['nome'];
+
+
+    	$this->view->loadPage("ver_produto",$data);
     }
     
 }

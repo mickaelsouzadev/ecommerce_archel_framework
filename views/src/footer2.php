@@ -5,8 +5,8 @@
       </div>
     </footer>
     <!-- Bootstrap core JavaScript -->
-    <script src="<?php echo $this->vendor ?>jquery/jquery.min.js"></script>
-    <script src="<?php echo $this->vendor ?>bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="../<?php echo $this->vendor ?>jquery/jquery.min.js"></script>
+    <script src="../<?php echo $this->vendor ?>bootstrap/js/bootstrap.bundle.min.js"></script>
     <script type="text/javascript">
     	$(document).ready(function() {
     		$("#login-form").submit(function() {
@@ -57,34 +57,20 @@
 
     		$('#compra-form').submit(function(){return false;})
 
-            $("#carrinho").click(function(){
-                
-                var data = {id_peca: $('#id_peca').val(), quantidade: $('#quantidade').val()};
-            
-                $.ajax({
-                    type: 'POST',
-                    url: 'adicionar-carrinho',
-                    data: data,
-                    success: function(response){
-                        console.log(response);
-                    }
-                });
-                
-            })
-
-            $('#delete-carrinho').click(function() {
-                var data = {id_carrinho: $('#id_carrinho').val()};
-                console.log(data);
-                 $.ajax({
-                    type: 'POST',
-                    url: 'deletar-carrinho',
-                    data: data,
-                    success: function(response){
-                       
-                        window.location.href="http://localhost/archel_framework/produtos";
-                    }
-                });
-            })
+    		$("#carrinho").click(function(){
+    			
+    			var data = {id_peca: $('#id_peca').val(), quantidade: $('#quantidade').val()};
+    		
+    			$.ajax({
+	                type: 'POST',
+	                url: '../adicionar-carrinho',
+	                data: data,
+	                success: function(response){
+	                    console.log(response);
+	                }
+           		});
+    			
+    		})
     		
     	});
     </script>

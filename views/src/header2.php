@@ -63,7 +63,7 @@
             
             </li>
             <li class="nav-item px-lg-2">
-            <a class="nav-link"><i class="fa fa-2x fa-shopping-cart"></i></a>
+            <a class="nav-link" href="meu-carrinho"><i class="fa fa-2x fa-shopping-cart"></i></a>
             
             </li>
           </ul>
