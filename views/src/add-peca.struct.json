@@ -1,0 +1,5 @@
+{
+    "headers": ["admin/header2.php"],
+    "pages": ["add-peca.php"],
+    "footers": ["admin/footer2.php"]
+}

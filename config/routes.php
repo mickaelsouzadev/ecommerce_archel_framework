@@ -12,21 +12,18 @@ if($_SERVER['HTTP_HOST'] == "localhost") {
 // var_dump($uri);
 $collector = new RouteCollector();
 
-$collector->filter('auth', function(){
+// $collector->filter('auth', function(){
+//     if(!App\Auth::verifyAdminIsLogged()) {
 
-	if($_SERVER['HTTP_HOST'] == "localhost") {
+//         header('Location: dashbord/login');
 
-		header('Location: ../login');
+//         return false;
+//     }
+  
 
-		return false;
-	}
+//     return "EAEEEEEE";
 
-    header('Location: login');
-
-    return false;
-
-    return true;
-});
+// });
 
 // $collector->get('login', function() {
 // 	App\Controllers\TestController::login();
@@ -93,22 +90,55 @@ $collector->get('/sair', function(){
     $controller->logout();
 });
 
-
-
-$collector->group(['before' => 'auth'], function(RouteCollector $collector){
-$collector->get('admin', function(){
-        App\Controllers\HomeController::index();
-    });
+$collector->get('/dashbord/login', function(){
+    $controller = new App\Controllers\AdminController();
+    $controller->login();
 });
 
-$collector->group(array('prefix' => 'admin'), function(RouteCollector $collector){
+
+// $collector->group(['before' => 'auth'], function(RouteCollector $collector){
+
+// });
+
+$collector->get('dashbord/home', function(){
+        $controller = new App\Controllers\AdminController();
+        $controller->index();
+    });
+
+$collector->group(array('prefix' => 'dashbord'), function(RouteCollector $collector){
 
     $collector->group(['before' => 'auth'], function(RouteCollector $collector){
-        $collector->get('pages', function(){
-             return 'page management';
+        $collector->get('vendas', function(){
+            $controller = new App\Controllers\AdminVendasController();
+            $controller->index();
         });
-        $collector->get('products', function(){
-            return 'product management';
+        $collector->get('compras', function(){
+            $controller = new App\Controllers\AdminComprasController();
+            $controller->index();
+        });
+        $collector->get('fornecedor', function(){
+            $controller = new App\Controllers\AdminFornecedorController();
+            $controller->index();
+        });
+         $collector->get('peca', function(){
+            $controller = new App\Controllers\AdminPecaController();
+            $controller->index();
+        });
+        $collector->get('peca/adicionar', function(){
+            $controller = new App\Controllers\AdminPecaController();
+            $controller->add();
+        });
+        $collector->get('fornecedor/adicionar', function(){
+            $controller = new App\Controllers\AdminFornecedorController();
+            $controller->add();
+        });
+        $collector->post('nova-peca', function() {
+            $controller = new App\Controllers\AdminPecaController();
+            $controller->insert();
+        });
+        $collector->post('novo-fornecedor', function(){
+            $controller = new App\Controllers\AdminFornecedorController();
+            $controller->insert();
         });
     });
  

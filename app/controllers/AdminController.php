@@ -5,19 +5,32 @@ use App\Session;
 
 class AdminController extends Controller{
     
-    function __construct() {
+    function __construct() 
+    {
         parent::__construct();
-        Session::setSession("admin",[]);
-        if(!$this->verifyRequester()){
-            header("Location:/");
-        }
+        // Session::setSession("admin",[]);
+        // if(!$this->verifyRequester()){
+        //     header("Location:/");
+        // }
     }
     
-    public function login(){
-        
+    public function index()
+    {
+        $data['title'] = "Adminstração do Site";
+
+        $this->view->loadPage("admin", $data);
+    }
+
+    public function login()
+    {
+
+        $data['title'] = "Login";
+
+        $this->view->loadPage("admin-login", $data);
     }
     
-    public function verifyRequester(){
+    public function verifyRequester()
+    {
         $sessionToken = Session::getSessionAttribute("admin", "token");
         $token = hash("sha384",$_SERVER['REMOTE_ADDR'],false);
         if(!is_null($sessionToken)){

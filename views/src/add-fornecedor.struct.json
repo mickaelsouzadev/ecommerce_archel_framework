@@ -1,0 +1,5 @@
+{
+    "headers": ["admin/header2.php"],
+    "pages": ["add-fornecedor.php"],
+    "footers": ["admin/footer2.php"]
+}
