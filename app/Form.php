@@ -42,6 +42,11 @@ class Form{
     {
         $this->filters = $filters;
     }
+
+    public function getFileName($index = 0)
+    {
+        return $this->files[0]['name'];
+    }
     
     public function checkEmptyFields()
     {
@@ -69,10 +74,12 @@ class Form{
             if(!$this->files){
                 throw new Exception("There are no files, have you filtered them?");
             }
+            $dir = (strrpos($dir,"/") === strlen($dir)-1) ? $dir : $dir."/";
             foreach($this->files as $file){
-                $done = move_uploaded_file($file['tmp_name'], $dir.$file['name']);
-                return $done;
+                echo  $dir.$file['name'];
+                $done[] = move_uploaded_file($file['tmp_name'], $dir.$file['name']);
             }
+            return $done;
         }catch(Exception $e){
             echo "Error: ".$e->getMessage();
         }

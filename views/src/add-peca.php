@@ -15,7 +15,7 @@
             <div class="panel panel-default">
                 <div class="panel-heading">
                 </div>
-                    <form method="post" id="add-peca">
+                    <form method="post" id="add-peca" enctype="multipart/form-data">
                         <div class="panel-body">
                         <div class="col-lg-6">
                                          <div class="form-group">
@@ -82,7 +82,13 @@
                                      
                          
                             </div>
-                           
+                            <div class="form-group">
+                                        <label>Imagem</label>
+                                            <input class="form-control" type="file" name="imagem">
+                                            
+                                     
+                         
+                            </div>
                            
                             <div class="form-group">
                                  <input type="submit" value="Adicionar" class="btn btn-success">

@@ -37,13 +37,36 @@ class AdminPecaController extends Controller
         $this->form_manager = new Form($fields,$filters);
         $form_data = $this->form_manager->getFilteredData();
 
-        
+		$this->form_manager->filterSingleFile("imagem", array("image/png", "image/jpeg", "image/gif"));
+		
+		$insert = $this->model->insert($form_data)->run("lastInsertId", $form_data);
 
-        if($this->model->insert($form_data)->run("rowCount", $form_data)) {
+        if($insert) {
+
+			if($this->form_manager->saveUploadedFiles("views/vendor/img")) {
+				$this->saveImage($this->form_manager->getFileName(0), $insert);
+			}
+
         	echo true;
         }
 
+		
+	
        
+	}
+
+	private function saveImage($name_image, $last_id)
+	{
+		
+	
+		var_dump($last_id);
+		$this->model->setTable('imagem_peca');
+
+		$data = ['id_peca'=>$last_id, 'imagem'=>$name_image];
+
+		var_dump($data);
+
+		$this->model->insert($data)->run("rowCount", $data);
 	}
 
 }

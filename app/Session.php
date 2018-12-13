@@ -57,6 +57,10 @@ class Session
 
     public static function getSessionAttribute($name, $attr) 
     {
+        if(!isset($_SESSION[$name][$attr])) {
+            self::setSessionAttribute($name, $attr, null);
+        }
+
         return $_SESSION[$name][$attr];
     }
 

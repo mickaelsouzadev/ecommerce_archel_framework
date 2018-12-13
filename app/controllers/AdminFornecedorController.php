@@ -33,7 +33,9 @@ class AdminFornecedorController extends Controller
 		$filters = ['razao_social'=>FILTER_SANITIZE_STRING, 'cnpj'=>FILTER_SANITIZE_STRING, 'telefone'=>FILTER_SANITIZE_STRING, 'email'=>FILTER_SANITIZE_STRING, 'pagina_web'=>FILTER_SANITIZE_STRING];
        
         $this->form_manager = new Form($fields,$filters);
-        $form_data = $this->form_manager->getFilteredData();
+		$form_data = $this->form_manager->getFilteredData();
+		
+	
 
         if($this->model->insert($form_data)->run("rowCount", $form_data)) {
         	echo true;
@@ -41,5 +43,7 @@ class AdminFornecedorController extends Controller
 
        
 	}
+
+	
 
 }

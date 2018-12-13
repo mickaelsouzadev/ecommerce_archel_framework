@@ -8,10 +8,10 @@ class AdminController extends Controller{
     function __construct() 
     {
         parent::__construct();
-        // Session::setSession("admin",[]);
-        // if(!$this->verifyRequester()){
-        //     header("Location:/");
-        // }
+        Session::setSession("admin",[]);
+        if(!$this->verifyRequester()){
+            header("Location: ../home");
+        }
     }
     
     public function index()
@@ -32,7 +32,12 @@ class AdminController extends Controller{
     public function verifyRequester()
     {
         $sessionToken = Session::getSessionAttribute("admin", "token");
+        // var_dump($sessionToken);
         $token = hash("sha384",$_SERVER['REMOTE_ADDR'],false);
+        // var_dump($token);
+        // var_dump($_SERVER['REMOTE_ADDR']);
+        // // phpinfo();
+        // die;
         if(!is_null($sessionToken)){
             if($sessionToken !== $token){
                 //ABORTA TUDO KRAI
@@ -42,6 +47,7 @@ class AdminController extends Controller{
                 return true;
             }
         }else{
+          
             $this->model->setTable("admin_valid_ips");
             $token_exists = $this->model->select()
                             ->where("ip_hash",$token)
