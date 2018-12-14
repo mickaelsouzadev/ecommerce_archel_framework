@@ -84,11 +84,16 @@ $collector->post('/deletar-carrinho', function(){
     $controller->deleteFromCart();
 });
 
+$collector->post('/pagseguro', function(){
+    $controller = new App\Controllers\CarrinhoController();
+    $controller->pagseguro();
+});
 
 $collector->get('/meu-carrinho', function(){
     $controller = new App\Controllers\CarrinhoController();
     $controller->index();
 });
+
 
 $collector->get('/sair', function(){
     $controller = new App\Controllers\LoginController();
@@ -164,11 +169,6 @@ $collector->group(array('prefix' => 'dashbord'), function(RouteCollector $collec
             $controller->insert();
         });
     });
- 
-    $collector->get('orders', function(){
-        return 'Order management';
-    });
-
    
     
 });

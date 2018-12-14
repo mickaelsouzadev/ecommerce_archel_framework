@@ -66,7 +66,7 @@
                     url: 'adicionar-carrinho',
                     data: data,
                     success: function(response){
-                        console.log(response);
+						console.log(response);
                     }
                 });
                 

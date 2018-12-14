@@ -11,9 +11,9 @@ class AdminController extends Controller{
     function __construct() 
     {
         parent::__construct();
-        if(!$this->verifyRequester()){
-            header("Location: ../home");
-        }
+        // if(!$this->verifyRequester()){
+            // header("Location: ../home");
+        // }
     }
     
     public function index()

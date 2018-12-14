@@ -22,7 +22,7 @@ class CarrinhoController extends Controller{
 
     	if(!Session::sessionExists('carrinho')) {
     		$data['carrinho'] = json_decode(Cookie::getCookie('carrinho'), true);
-    	}
+        }
 
     	$count_array = count($data['carrinho']);
     	$count = 0;
@@ -95,6 +95,31 @@ class CarrinhoController extends Controller{
         $json_cart = json_encode(Session::getSession("carrinho"));
         Cookie::setCookie("carrinho", $json_cart);
         
+    }
+
+    public function pagseguro()
+    {
+        $receiverEmail = "&receiverEmail=radaelli_age@hotmail.com";
+
+        $data = $_POST;
+        $dataencodedstring = implode("&",array_map(function($row){
+            return http_build_query($row);
+        },$data));
+
+        $dataencodedstring.= "&currency=BRL".$receiverEmail;
+        echo $dataencodedstring;
+        
+        $c = curl_init();
+        curl_setopt($c, CURLOPT_URL, "https://ws.sandbox.pagseguro.uol.com.br/v2/checkout?");
+        curl_setopt($c, CURLOPT_POST, 1);
+        curl_setopt($c, CURLOPT_HTTPHEADER, array('Content-Type: application/x-www-form-urlencoded', 
+                                                 'charset=ISO-8859-1'));
+        curl_setopt($c, CURLOPT_RETURNTRANSFER, true);
+
+        $output = curl_exec($c);
+        curl_close($c);
+
+        echo $output;
     }
     
 }

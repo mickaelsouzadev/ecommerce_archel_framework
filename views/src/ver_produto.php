@@ -20,6 +20,8 @@
 					<div class="col-lg-4">
 						<h1 class="font-weight-bold">R$ <?php echo $data['products']['valor_venda']; ?></h1>
 					<br>
+					<div><p id="isAdded" class="text-success"></p><a id="carrinhoLink" href="../meu-carrinho" style="display:none"> carrinho</a></div>
+					<br>
 						<div class="form-group">
 							<form method="post" id="compra-form">
 							<div class="form-group col-lg-5">
@@ -33,7 +35,7 @@
 							<br>
 							<div class="form-group">
 								<?php if(App\Auth::verifyUserIsLogged()): ?>
-								<input type="submit" class='btn btn-lg btn-success register-input' name="comprar" value='Comprar'><br>
+								<input type="submit" class='btn btn-lg btn-success register-input' id="comprar" name="comprar" value='Comprar'><br>
 								<?php else: ?>
 								<label>Faça <a href="../entrar">login</a> para poder comprar:</label>
 								<input type="submit" class='btn btn-lg btn-success register-input disabled' name="comprar" value='Comprar'><br>	
@@ -46,6 +48,7 @@
 								Adicionar ao carrinho
 								</button><br>
 							</div>
+							
 						</div>
 					</div>
 				</div>

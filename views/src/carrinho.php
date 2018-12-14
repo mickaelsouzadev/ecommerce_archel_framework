@@ -21,48 +21,50 @@
                   
                   
                 </h2>
-                <div class="form-row">
-					<?php foreach ($data['carrinho'] as $prod): ?>
-					<div class="col-lg-3">
-						<img src="<?php echo $this->vendor ?>img/<?php echo $prod['product']['imagem'] ?>" width="120" height="80">
-					</div>
-					<div class="col-lg-7">
-						<h4><?php echo $prod['product']['nome'] ?></h4>
-						<h5>R$ <?php echo $prod['product']['valor_venda'] ?></h5>
-						<h5><?php echo $prod['qtd'] ?> Unidades</h5>
-					</div>
-					<div class="col-lg-2">
-						<button class="btn btn-danger delete-carrinho" id="<?php echo $prod['product']['id'] ?>">Deletar <i class="fa fa-trash"></i></button>
-					</div>
-					
-					<?php endforeach; ?>
-				
-				</div><br>
-				<div class="row">
-					<div class="col-lg-9">
-				
-					</div>
-					<?php $total = 0; foreach($data['carrinho'] as $prod): $total += (float)$prod['total']; endforeach;?>
+            <div class="form-row">
+							<?php foreach ($data['carrinho'] as $prod): ?>
+							<div class="data">
+								<input type="hidden" name="itemId"				 	value="<?php echo $prod['product']['id']; ?>">
+								<input type="hidden" name="itemDescription" value="<?php echo $prod['product']['nome']; ?>">
+								<input type="hidden" name="itemAmount" 			value="<?php echo $prod['product']['valor_venda']; ?>">
+								<input type="hidden" name="itemQuantity" 		value="<?php echo $prod['qtd']; ?>">
+							</div>
+							<div class="col-lg-3">
+								<img src="<?php echo $this->vendor ?>img/<?php echo $prod['product']['imagem'] ?>" width="120" height="80">
+							</div>
+							<div class="col-lg-7">
+								<h4><?php echo $prod['product']['nome'] ?></h4>
+								<h5>R$ <?php echo $prod['product']['valor_venda'] ?></h5>
+								<h5><?php echo $prod['qtd'] ?> Unidades</h5>
+							</div>
+							<div class="col-lg-2">
+								<button class="btn btn-danger delete-carrinho" id="<?php echo $prod['product']['id'] ?>">Deletar <i class="fa fa-trash"></i></button>
+							</div>
+							
+							<?php endforeach; ?>
+						</div><br>
+						<div class="row">
+							<div class="col-lg-9">
+						
+							</div>
+							<?php $total = 0; foreach($data['carrinho'] as $prod): $total += (float)$prod['total']; endforeach;?>
 
-					<div class="col-lg-3">
-						<h5>Total: R$ <?php echo $total ?></h5>
-					</div>
+							<div class="col-lg-3">
+								<h5>Total: R$ <?php echo $total ?></h5>
+							</div>
 
-				</div>
-				<div class="form-group">
-					<?php if(App\Auth::verifyUserIsLogged()): ?>
-                        <input type="submit" class='btn btn-lg btn-success register-input' name="criar" value='Comprar Tudo'><br>
-                    <?php else: ?>
-                    	<label>Faça <a href="entrar">login</a> para poder comprar:</label>
-                    	<br>
-                    	<input type="submit" class='btn btn-lg btn-success register-input disabled' name="criar" value='Comprar Tudo'><br>
-                    <?php endif; ?>
-                    </div>
+						</div>
+						<div class="form-group">
+							<?php if(App\Auth::verifyUserIsLogged()): ?>
+									<button class='btn btn-lg btn-success register-input disabled' id="finalizarcompra" name="criar" >Comprar Tudo</button>
+								<?php else: ?>
+									<label>Faça <a href="entrar">login</a> para poder comprar:</label>
+									<br>
+									<br>
+								<?php endif; ?>
+						</div>
+						
                 <?php endif; ?>
-               
-                    
-             
-                 
               </div>
             </div>
           </div>

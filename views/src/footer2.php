@@ -66,11 +66,28 @@
 	                url: '../adicionar-carrinho',
 	                data: data,
 	                success: function(response){
-	                    console.log(response);
+	                    console.log("Success");
+                        console.log(response);
+						$("#isAdded").html("Produto adicionado ao ");
+						$("#carrinhoLink").css("display","block");
 	                }
            		});
     			
-    		})
+    		});
+
+			$("#comprar").click(function(){
+			var data = {id_peca: $('#id_peca').val(), quantidade: $('#quantidade').val()};
+    		
+			$.ajax({
+				type: 'POST',
+				url: '../adicionar-carrinho',
+				data: data,
+				success: function(response){
+					window.location.href = "../meu-carrinho";
+				}
+			   });
+
+			});
     		
     	});
     </script>
