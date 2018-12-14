@@ -16,7 +16,51 @@
     <!-- Demo scripts for this page-->
     <script src="../<?php echo $this->vendor ?>js/demo/datatables-demo.js"></script>
     <script src="../<?php echo $this->vendor ?>js/demo/chart-area-demo.js"></script>
-   
+    <script type="text/javascript">
+        $('.delete-peca').click(function() {
+          var id = $(this).val();
+          $('#modal-delete-peca').modal('show');
+          $('#peca-id').html(id);
+          $('#delete').click(function() {
+            $.ajax({
+                type: 'POST',
+                url: '../peca/delete',
+                data: {'id':id},
+                success: function(response){
+                    console.log(response);
+                    $('#modal-delete-peca').modal('hide');
+                    $('#success-delete').modal('show');
+                    window.location.reload();
+                    //loadResources();
+                }
+            });
+        });
+      });
+
+        $('.update-peca').click(function() {
+          var id = $(this).val();
+
+          $('#modal-update-peca'+id).modal('show');
+
+          // $('#peca-id'+id).html(id);
+          $('#save'+id).click(function() {
+            var data = $('#update-peca-form'+id).serialize();
+           
+            $.ajax({
+                type: 'POST',
+                url: '../peca/update/'+id,
+                data: data,
+                success: function(response){
+                    console.log(response);
+                    $('#modal-update-peca'+id).modal('hide');
+                    $('#success-delete').modal('show');
+                    window.location.reload();
+                    //loadResources();
+                }
+            });
+        });
+      });
+    </script>
   </body>
 
 </html>

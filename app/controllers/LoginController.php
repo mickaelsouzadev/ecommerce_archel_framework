@@ -33,11 +33,11 @@ class LoginController extends Controller{
 
         $user = ['username'=>$data['nome'], 'email'=>$data['email'], 'password'=>$data['senha']];
 
-        // var_dump($form_data);
+      
 
         echo $this->auth->login($form_data['senha'], $user);
 
-        // var_dump(Session::getAllSessions());
+  
     }
 
     public function logout()

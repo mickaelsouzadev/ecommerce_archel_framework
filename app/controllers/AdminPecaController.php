@@ -15,7 +15,7 @@ class AdminPecaController extends Controller
 	{
 	    $data['title'] = "Adminstração do Site";
 
-	    $data['peca'] = $this->model->select()->run("fetchAll");
+	    $data['peca'] = $this->model->select()->where("deletado", 0)->run("fetchAll");
 
 	    $this->view->loadPage("peca", $data);
 	}
@@ -54,6 +54,38 @@ class AdminPecaController extends Controller
 	
        
 	}
+
+	public function update($id)
+	{
+		$fields = ['nome', 'valor_compra', 'valor_venda', 'marca', 'stock', 'dimensoes_pacote', 'categoria', 'compatibilidade'];
+
+        $filters = ['nome'=>FILTER_SANITIZE_STRING, 'valor_compra'=>FILTER_SANITIZE_STRING, 'valor_venda'=>FILTER_SANITIZE_STRING, 'marca'=>FILTER_SANITIZE_STRING, 'stock'=>FILTER_SANITIZE_STRING, 'dimensoes_pacote'=>FILTER_SANITIZE_STRING, 'categoria'=>FILTER_SANITIZE_STRING, 'compatibilidade'=>FILTER_SANITIZE_STRING];
+
+        $this->form_manager = new Form($fields,$filters);
+        $form_data = $this->form_manager->getFilteredData();
+
+		$update = $this->model->update($form_data, $id)->run("rowCount", $form_data);
+
+      
+
+		
+	}
+       
+
+	public function delete()
+	{
+	   	$fields = ['id'];
+	   	$filters = ['id'=>FILTER_SANITIZE_STRING];
+
+	   	$this->form_manager = new Form($fields,$filters);
+        $form_data = $this->form_manager->getFilteredData();
+
+
+
+        $this->model->update(['deletado'=>1], $form_data['id'])->run("rowCount", ['deletado'=>1]);
+	  
+	}
+
 
 	private function saveImage($name_image, $last_id)
 	{

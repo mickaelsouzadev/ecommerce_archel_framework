@@ -373,3 +373,15 @@ body.sidebar-toggled footer.sticky-footer {
     width: calc(100% - 90px);
   }
 }
+.modal-header-danger {
+  background-color: #dc3545;
+  color: #fff;
+}
+.modal-header-success {
+  background-color: #28a745;
+  color: #fff;
+}
+.modal-header-primary {
+  background-color: #007bff;
+  color: #fff;
+}

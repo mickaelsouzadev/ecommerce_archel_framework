@@ -104,6 +104,16 @@ $collector->get('/dashbord/logout', function(){
     $controller = new App\Controllers\AdminController();
     $controller->logout();
 });
+
+$collector->post('/peca/delete/', function(){
+    $controller = new App\Controllers\AdminPecaController();
+    $controller->delete();
+});
+
+$collector->post('/peca/update/{id}', function($id){
+    $controller = new App\Controllers\AdminPecaController();
+    $controller->update($id);
+});
 // $collector->group(['before' => 'auth'], function(RouteCollector $collector){
 
 // });

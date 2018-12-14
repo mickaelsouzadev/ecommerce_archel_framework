@@ -30,6 +30,7 @@ class Model
     }
     
     public function run($callback, $params = null){
+        // var_dump($params);
         return $this->connection->exec($this->builder->query,$callback,$params);
     }
     
