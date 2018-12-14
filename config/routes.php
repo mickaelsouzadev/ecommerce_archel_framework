@@ -1,29 +1,29 @@
-<?php  
+<?php
+
 use Phroute\Phroute\RouteCollector;
 use Phroute\Phroute\Dispatcher;
+use App\Auth;
 
 $uri = $_SERVER['REQUEST_URI'];
 
 $method = $_SERVER['REQUEST_METHOD'];
-// var_dump($uri);
+
 if($_SERVER['HTTP_HOST'] == "localhost") {
     $uri = str_replace('/archel_framework', "", $uri);
 }
-// var_dump($uri);
+
 $collector = new RouteCollector();
 
-// $collector->filter('auth', function(){
-//     if(!App\Auth::verifyAdminIsLogged()) {
+App\Session::start();
 
-//         header('Location: dashbord/login');
+$collector->filter('auth', function(){
+    if(!Auth::verifyAdminIsLogged()) {
+        
+        header('Location: ../dashbord/login');
 
-//         return false;
-//     }
-  
-
-//     return "EAEEEEEE";
-
-// });
+        return false;
+    }
+});
 
 // $collector->get('login', function() {
 // 	App\Controllers\TestController::login();
@@ -69,6 +69,11 @@ $collector->post('/login', function(){
     $controller->login();
 });
 
+$collector->post('dashbord/do-login', function(){
+    $controller = new App\Controllers\AdminController();
+    $controller->doLogin();
+});
+
 $collector->post('/adicionar-carrinho', function(){
     $controller = new App\Controllers\CarrinhoController();
     $controller->addToCart();
@@ -95,19 +100,27 @@ $collector->get('/dashbord/login', function(){
     $controller->login();
 });
 
-
+$collector->get('/dashbord/logout', function(){
+    $controller = new App\Controllers\AdminController();
+    $controller->logout();
+});
 // $collector->group(['before' => 'auth'], function(RouteCollector $collector){
 
 // });
 
-$collector->get('dashbord/home', function(){
-        $controller = new App\Controllers\AdminController();
-        $controller->index();
-    });
+
 
 $collector->group(array('prefix' => 'dashbord'), function(RouteCollector $collector){
 
     $collector->group(['before' => 'auth'], function(RouteCollector $collector){
+        $collector->get('/', function() {
+            $controller = new App\Controllers\AdminController();
+            $controller->index();
+        });
+        $collector->get('home', function(){
+            $controller = new App\Controllers\AdminController();
+            $controller->index();
+        });
         $collector->get('vendas', function(){
             $controller = new App\Controllers\AdminVendasController();
             $controller->index();

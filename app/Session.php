@@ -1,7 +1,7 @@
 <?php  
 /* PHP Class for create and managing sessions
  * AUTHOR: Mickael Souza
- * LAST EDIT: 2018-12-12
+ * LAST EDIT: 2018-12-14
  */
 namespace App;
 
@@ -61,7 +61,7 @@ class Session
             self::setSessionAttribute($name, $attr, null);
         }
 
-        return $_SESSION[$name][$attr];
+        return (isset($_SESSION[$name][$attr])) ? $_SESSION[$name][$attr] : false;
     }
 
     public static function sessionExists($name) 

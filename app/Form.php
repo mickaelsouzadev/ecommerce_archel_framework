@@ -1,7 +1,7 @@
 <?php
 /* PHP Class for filtering and retriving information from forms
- * AUTHOR: Antony Acosta
- * LAST EDIT: 2018-11-22
+ * AUTHOR: Antony Acosta, modified by Mickael Souza
+ * LAST EDIT: 2018-12-13
  */
 namespace App;
 

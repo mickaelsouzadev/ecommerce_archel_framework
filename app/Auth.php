@@ -1,7 +1,7 @@
 <?php  
 /* PHP Class for managing the authentication of the users
  * AUTHOR: Mickael Souza
- * LAST EDIT: 2018-12-12
+ * LAST EDIT: 2018-12-14
  */
 namespace App;
 use App\Session;
@@ -49,9 +49,15 @@ class Auth
 	public static function verifyAdminIsLogged()
 	{
 		if(Session::sessionExists('admin')) {
-			return Session::sessionExists('admin');
+			
+
+			if(Session::getSessionAttribute("admin", "credentials")) {
+				
+				return true;
+			}
+			
 		} else {
-			return Cookie::cookieExists('admin');
+			return false;
 		}	 
 	}
 	public static function verifyUserIsLogged()
@@ -64,8 +70,16 @@ class Auth
 	}
 	public function createSession($type = 'user')
 	{
-		Session::setSession($type, $this->user);
+		
+		if($type = "admin") {
+			Session::setSessionAttribute("admin", "credentials", $this->user);
+		} else {
+			Session::setSession($type, $this->user);
+		}
+
+		
 	}
+		
 
 	public function createCookie($type = 'user')
 	{

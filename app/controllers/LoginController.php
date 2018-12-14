@@ -35,7 +35,7 @@ class LoginController extends Controller{
 
         // var_dump($form_data);
 
-        print $this->auth->login($form_data['senha'], $user);
+        echo $this->auth->login($form_data['senha'], $user);
 
         // var_dump(Session::getAllSessions());
     }
