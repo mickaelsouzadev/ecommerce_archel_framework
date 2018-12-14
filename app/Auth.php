@@ -71,7 +71,7 @@ class Auth
 	public function createSession($type = 'user')
 	{
 		
-		if($type = "admin") {
+		if($type == "admin") {
 			Session::setSessionAttribute("admin", "credentials", $this->user);
 		} else {
 			Session::setSession($type, $this->user);
