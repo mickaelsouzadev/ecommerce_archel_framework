@@ -1,4 +1,3 @@
-<!-- <?php var_dump($data['carrinho']) ?> -->
 <section class="page-section about-heading default-forms-section sections-w">
       <div class="container">
         <img class="img-fluid about-heading-img mb-3 mb-lg-0" src="img/about.jpg" alt="">
@@ -24,10 +23,10 @@
             <div class="form-row">
 							<?php foreach ($data['carrinho'] as $prod): ?>
 							<div class="data">
-								<input type="hidden" name="itemId"				 	value="<?php echo $prod['product']['id']; ?>">
-								<input type="hidden" name="itemDescription" value="<?php echo $prod['product']['nome']; ?>">
-								<input type="hidden" name="itemAmount" 			value="<?php echo $prod['product']['valor_venda']; ?>">
-								<input type="hidden" name="itemQuantity" 		value="<?php echo $prod['qtd']; ?>">
+								<input type="hidden" name="id"					value="<?php echo $prod['product']['id']; ?>">
+								<input type="hidden" name="nome"				value="<?php echo $prod['product']['nome']; ?>">
+								<input type="hidden" name="valor"				value="<?php echo $prod['product']['valor_venda']; ?>">
+								<input type="hidden" name="quantidade"	value="<?php echo $prod['qtd']; ?>">
 							</div>
 							<div class="col-lg-3">
 								<img src="<?php echo $this->vendor ?>img/<?php echo $prod['product']['imagem'] ?>" width="120" height="80">

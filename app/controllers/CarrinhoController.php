@@ -52,7 +52,8 @@ class CarrinhoController extends Controller{
         $this->form_manager = new Form($fields,$filters);
         $form_data = $this->form_manager->getFilteredData();
 
-    	$data['products'] = $this->model->join(["peca"=>
+    	$data['products'] = array_unique($this->model->join(
+                                                ["peca"=>
                                                     ["id", 
                                                     "nome", 
                                                     "valor_venda", 
@@ -64,8 +65,9 @@ class CarrinhoController extends Controller{
                                                 "imagem_peca"=>
                                                     [ 
                                                     "id_peca", 
-                                                    "imagem"]])->where('id', $form_data['id_peca'])->run("fetch");
-    	$cart = ['product' => $data['products'], 'qtd'=> $form_data['quantidade'], 'total'=> $form_data['quantidade'] * $data['products']['valor_venda']];
+                                                    "imagem"]])->where('id', $form_data['id_peca'])->run("fetch"));
+        $data["products"]["valor_venda"] = ((float)$data["products"]["valor_venda"] == $data["products"]["valor_venda"]) ? $data["products"]["valor_venda"].".00" : $data["products"]["valor_venda"];
+    	$cart = ['product' => $data["products"], 'qtd'=> $form_data['quantidade'], 'total'=> $form_data['quantidade'] * $data['products']['valor_venda']];
 
         
         
@@ -99,27 +101,43 @@ class CarrinhoController extends Controller{
 
     public function pagseguro()
     {
-        $receiverEmail = "&receiverEmail=radaelli_age@hotmail.com";
+        $config = parse_ini_file(__DIR__."/config.ini");
+        $token = $config["token"];
+        $receiverEmail = $config["email"];
 
         $data = $_POST;
-        $dataencodedstring = implode("&",array_map(function($row){
-            return http_build_query($row);
-        },$data));
-
-        $dataencodedstring.= "&currency=BRL".$receiverEmail;
-        echo $dataencodedstring;
-        
-        $c = curl_init();
-        curl_setopt($c, CURLOPT_URL, "https://ws.sandbox.pagseguro.uol.com.br/v2/checkout?");
+        $encodedrows = [];
+        foreach($data as $key=>$element){
+            $encodedrows[] = http_build_query(array(
+                "itemId{$key}"=>$element["id"],
+                "itemDescription{$key}"=>$element["nome"],
+                "itemAmount{$key}"=>$element["valor"],
+                "itemQuantity{$key}"=>$element["quantidade"]
+            ));
+        };
+        $httpquery = implode("&",$encodedrows)."&receiverEmail={$receiverEmail}&currency=BRL";
+    
+        $c = curl_init("https://ws.sandbox.pagseguro.uol.com.br/v2/checkout?email={$receiverEmail}&token={$token}");
         curl_setopt($c, CURLOPT_POST, 1);
         curl_setopt($c, CURLOPT_HTTPHEADER, array('Content-Type: application/x-www-form-urlencoded', 
                                                  'charset=ISO-8859-1'));
+        curl_setopt($c, CURLOPT_POSTFIELDS, $httpquery);
         curl_setopt($c, CURLOPT_RETURNTRANSFER, true);
 
         $output = curl_exec($c);
         curl_close($c);
 
-        echo $output;
+        preg_match("/<code>(.*)<\/code>/",$output,$code);
+        
+        print_r($code[1]);
+        return 1;
+    }
+
+    public function purchased($code)
+    {
+        $data = ["title"=> "Sua compra está sendo processada",
+            "code"=>$code]; 
+        $this->view->loadPage("compra-completada",$data);
     }
     
 }

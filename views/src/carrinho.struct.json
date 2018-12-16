@@ -1,5 +1,5 @@
 {
     "headers": ["header2.php"],
     "pages": ["carrinho.php"],
-    "footers": ["footer.php","comprahandler.php"]
+    "footers": ["footer.php","pagseguroapi.php","comprahandler.php"]
 }

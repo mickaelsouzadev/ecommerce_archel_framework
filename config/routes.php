@@ -94,6 +94,10 @@ $collector->get('/meu-carrinho', function(){
     $controller->index();
 });
 
+$collector->get('/compra-completada/{code}', function(){
+    $controller = new App\Controllers\CarrinhoController();
+    $controller->purchased($code);
+});
 
 $collector->get('/sair', function(){
     $controller = new App\Controllers\LoginController();

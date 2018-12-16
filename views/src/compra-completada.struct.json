@@ -1,0 +1,5 @@
+{
+    "headers": ["header2.php"],
+    "pages": ["compra-completada.php"],
+    "footers": ["footer.php"]
+}

@@ -1,27 +1,33 @@
 <script type="text/javascript">
     $("#finalizarcompra").click(function(){
         var jsondata = {};
-        data = $(".data");
-        //$(data[0]).children('[name="itemId"]').val()
-        for(var i = 0; i < data.length; i++){
-             var row = {};
-                row["itemId"+(i+1)]= $(data[i]).children('[name="itemId"]').val();
-                row["itemDescription"+(i+1)]= $(data[i]).children('[name="itemDescription"]').val();
-                row["itemAmount"+(i+1)]= $(data[i]).children('[name="itemAmount"]').val();
-                row["itemQuantity"+(i+1)]= $(data[i]).children('[name="itemQuantity"]').val();
+        var data = $(".data");
         
-            jsondata[i] = row;
-        }
-        console.log(data);
-        console.log(jsondata);
+        $.each(data,function(index, node){
+            jsondata[index+1] = {
+                "id":           $(node).children('[name="id"]').val(),
+                "nome":         $(node).children('[name="nome"]').val(),
+                "valor":        $(node).children('[name="valor"]').val(),
+                "quantidade":   $(node).children('[name="quantidade"]').val()
+            }
+        });
+
         $.ajax({
 	        type: 'POST',
 	        url: './pagseguro',
 	        data: jsondata,
 	        success: function(response){
 	            console.log("Success");
-                console.log(response);
-				
+                PagSeguroLightbox({
+                    code: response,
+                    success: function(transactionCode){
+                        console.log("Done.");
+                        window.location.href = "./compra-completada/"+transactionCode;
+                    },
+                    abort: function(){
+                        console.log("Aborted");
+                    }
+                })
             },
             error: function(a,b,c){
                 console.log("Error");
