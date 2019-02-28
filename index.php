@@ -9,4 +9,5 @@ use App\Cookie;
 
 echo $dispatcher->dispatch($method, $uri); 
 
+
 // var_dump(Session::getAllSessions());

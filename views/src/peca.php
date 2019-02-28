@@ -34,27 +34,27 @@
 										
                                     </tr>
                                 </thead>
-                                <?php foreach($data['peca'] as $peca): ?>
-								<tr>
-                                        <td><?php echo $peca['id'] ?></td>
-                                        <td><?php echo $peca['nome'] ?></td>
-                                        <td><?php echo $peca['valor_compra'] ?></td>
-                                        <td><?php echo $peca['valor_venda'] ?></td>
-										<td><?php echo $peca['marca'] ?></td>
-										<td><?php echo $peca['stock'] ?></td>
-										<td><?php echo $peca['dimensoes_pacote'] ?></td>
-										<td><?php echo $peca['categoria'] ?></td>
-										<td><a href="#"><button  value="<?php echo $peca['id'] ?>" class="btn btn-primary update-peca"><i class="fas fa-pencil-alt "></i></button></a>
+                              <!--   <?php //foreach($data['peca'] as $peca): ?> -->
+								<tr v-for="td in results">
+                                        <td v-text="td.id"><!-- <?php //echo $peca['id'] ?> --></td>
+                                        <td v-text="td.nome"><!-- <?php //echo $peca['nome'] ?> --></td>
+                                        <td v-text="td.valor_compra"><!-- <?php //echo $peca['valor_compra'] ?> --></td>
+                                        <td v-text="td.valor_venda"><!-- <?php //echo $peca['valor_venda'] ?> --></td>
+										<td v-text="td.marca"><!-- <?php //echo $peca['marca'] ?> --></td>
+										<td v-text="td.stock"><!-- <?php //echo $peca['stock'] ?> --></td>
+										<td v-text="td.dimensoes_pacote"><!-- <?php //echo $peca['dimensoes_pacote'] ?> --></td>
+										<td v-text="td.categoria"><!-- <?php //echo $peca['categoria'] ?> --></td>
+										<td><a href="#"><button  v-bind:value="td.id" class="btn btn-primary update-peca"><i class="fas fa-pencil-alt "></i></button></a>
 
                                         </td>
                                         <td>
-                                            <a href="#"><button value="<?php echo $peca['id'] ?>"  class="btn btn-danger delete-peca"><i class="fas fa-trash-alt"></i></button></a>
+                                            <a href="#"><button  v-on:click="deletePeca(td.id)" class="btn btn-danger delete-peca"><i class="fas fa-trash-alt"></i></button></a>
                                         </td>
                                 </tr>
-                            <?php endforeach; ?>
+                           <!--  <?php //endforeach; ?> -->
                         </table>
 
-                    
+                    <!-- v-bind:value="td.id" -->
                 </div>
             </div>
         </div>

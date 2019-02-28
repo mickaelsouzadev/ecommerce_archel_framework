@@ -72,20 +72,25 @@ class AdminPecaController extends Controller
 	}
        
 
-	public function delete()
+	public function delete($id)
 	{
-	   	$fields = ['id'];
-	   	$filters = ['id'=>FILTER_SANITIZE_STRING];
+	   	// $fields = ['id'];
+	   	// $filters = ['id'=>FILTER_SANITIZE_STRING];
 
-	   	$this->form_manager = new Form($fields,$filters);
-        $form_data = $this->form_manager->getFilteredData();
+	   	// $this->form_manager = new Form($fields,$filters);
+     //    $form_data = $this->form_manager->getFilteredData();
 
 
 
-        $this->model->update(['deletado'=>1], $form_data['id'])->run("rowCount", ['deletado'=>1]);
+        print $this->model->update(['deletado'=>1], $id)->run("rowCount", ['deletado'=>1]);
 	  
 	}
 
+	public function getPecaJson()
+ 	{
+ 		$data = $this->model->select()->where("deletado", 0)->run("fetchAll");
+ 		print json_encode($data);
+ 	}
 
 	private function saveImage($name_image, $last_id)
 	{
@@ -100,5 +105,7 @@ class AdminPecaController extends Controller
 
 		$this->model->insert($data)->run("rowCount", $data);
 	}
+
+
 
 }
